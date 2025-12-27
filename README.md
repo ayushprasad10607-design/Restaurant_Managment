@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 
 menu = {
-    "Item": ["Burger", "Pizza", "Pasta", "Coffee", "Sandwich"],
+    "Item": ["Burger", "chicken tikka", "paneer rara", "chicken roll", "chicken biryani"],
     "Price": [120, 250, 180, 80, 100]
 }
 
