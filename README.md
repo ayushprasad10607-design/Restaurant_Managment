@@ -4,12 +4,10 @@ This project is a simple Restaurant Management System using NumPy, Pandas, and M
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
-
 menu = {
     "Item": ["Burger", "chicken tikka", "paneer rara", "chicken roll", "chicken biryani"],
     "Price": [120, 250, 180, 80, 100]
-}
+    }
 
 menu_df = pd.DataFrame(menu)
 print("\n--- MENU ---")
