@@ -1,48 +1,59 @@
-# Restaurant_Managment
-This project is a simple Restaurant Management System using NumPy, Pandas, and Matplotlib. It manages order data, calculates total sales, analyzes item-wise performance, and displays sales trends using graphs to help understand restaurant performance easily.
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-menu = {
-    "Item": ["Burger", "chicken tikka", "paneer rara", "chicken roll", "chicken biryani"],
-    "Price": [120, 250, 180, 80, 100]
-    }
 
-menu_df = pd.DataFrame(menu)
-print("\n--- MENU ---")
-print(menu_df)
-
-
-orders = {
-    "Item": ["Burger", "Pizza", "Burger", "Coffee", "Pasta", "Pizza", "Coffee"],
-    "Quantity": [2, 1, 1, 3, 1, 2, 2]
+# ----------------------------
+# Restaurant Menu Data
+# ----------------------------
+menu_data = {
+    "Item": ["Veg Pizza", "Chicken Burger", "French Fries", "Cold Drink", "Veg Sandwich"],
+    "Price": [200, 150, 90, 50, 120]
 }
 
-orders_df = pd.DataFrame(orders)
+menu_df = pd.DataFrame(menu_data)
+print("\n--- RESTAURANT MENU ---")
+print(menu_df)
 
+# ----------------------------
+# Customer Orders Data
+# ----------------------------
+order_data = {
+    "Item": ["Veg Pizza", "French Fries", "Veg Pizza", "Cold Drink", "Chicken Burger", "Cold Drink"],
+    "Quantity": [1, 2, 1, 3, 2, 1]
+}
 
-bill_df = orders_df.merge(menu_df, on="Item")
-bill_df["Total"] = bill_df["Price"] * bill_df["Quantity"]
+orders_df = pd.DataFrame(order_data)
 
-print("\n--- ORDER DETAILS ---")
+# ----------------------------
+# Billing Calculation
+# ----------------------------
+bill_df = pd.merge(orders_df, menu_df, on="Item")
+bill_df["Amount"] = bill_df["Price"] * bill_df["Quantity"]
+
+print("\n--- BILL DETAILS ---")
 print(bill_df)
 
+# ----------------------------
+# Total Bill Amount
+# ----------------------------
+final_bill = np.sum(bill_df["Amount"])
+print("\nTotal Payable Amount: ₹", final_bill)
 
-total_bill = np.sum(bill_df["Total"])
-print("\nTotal Bill Amount: ₹", total_bill)
+# ----------------------------
+# Sales Summary
+# ----------------------------
+item_sales = bill_df.groupby("Item")["Quantity"].sum()
 
+print("\n--- ITEM SALES SUMMARY ---")
+print(item_sales)
 
-sales_summary = bill_df.groupby("Item")["Quantity"].sum()
-
-print("\n--- SALES SUMMARY ---")
-print(sales_summary)
-
-
+# ----------------------------
+# Visualization
+# ----------------------------
 plt.figure()
-sales_summary.plot(kind="bar")
-plt.title("Most Sold Items in Restaurant")
+item_sales.plot(kind="bar")
+plt.title("Restaurant Item Sales Analysis")
 plt.xlabel("Food Items")
-plt.ylabel("Quantity Sold")
+plt.ylabel("Total Quantity Sold")
 plt.tight_layout()
 plt.show()
